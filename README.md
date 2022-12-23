@@ -6,7 +6,14 @@ ZOE (*Zoe Opponent Engine*) is an XBoard chess engine, written in C by [James St
 
 ## ZOE retouched
 
-In [this repository](https://github.com/rchastain/zoe) you can find a version retouched by Roland Chastain. See [change history](CHANGES.md) for details.
+In [this repository](https://github.com/rchastain/zoe) you can find a version retouched by Roland Chastain. See [change history](CHANGES.md).
+
+## Logos
+
+![Image](logo/logo1.gif)
+![Image](logo/logo2.gif)
+
+(Made with ImageMagick and [Ausweis](https://www.dafont.com/ausweis.font) font.)
 
 ## Interesting links
 
