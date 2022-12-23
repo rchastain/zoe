@@ -6,7 +6,9 @@
 #include "zoe.h"
 #include <time.h>
 
+#ifndef SEARCHDEPTH
 #define SEARCHDEPTH 6
+#endif
 
 static int nodes;
 
@@ -256,6 +258,9 @@ Move best_move(Game game)
 {
     clock_t start = clock();
     nodes = 0;
+    
+    printf("# SEARCHDEPTH = %d\n", SEARCHDEPTH);
+    
     MoveScore best = iterative_deepening(game);
     printf("# %.2f n/s\n", (float)(nodes * CLOCKS_PER_SEC) / (clock() - start));
 

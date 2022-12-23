@@ -7,6 +7,10 @@ LDFLAGS = $(ldflags)
 CFLAGS  = -Wall -DASM_BITSCAN $(cflags)
 OBJS    = bitscan.o board.o game.o hash.o move.o search.o zoe.o
 
+ifdef SEARCHDEPTH
+CFLAGS += -DSEARCHDEPTH=$(SEARCHDEPTH)
+endif
+
 .PHONY: all
 all: zoe
 
