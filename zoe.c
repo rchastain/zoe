@@ -157,9 +157,7 @@ int main(int argc, char **argv)
     generate_movetables();
     /* setup the initial game state */
     reset_game(&game);
-    /* let xboard know that we are done initialising */
-    puts("feature done=1");
-
+    
     /* repeatedly handle commands from xboard */
     while (getline(&line, &len, stdin) != -1)
     {
@@ -169,7 +167,13 @@ int main(int argc, char **argv)
         if (line[strlen(line) - 1] == '\n')
             line[strlen(line) - 1] = '\0';
 
-        if (strcmp(line, "new") == 0)
+        if (strcmp(line, "protover 2") == 0 || strcmp(line, "protover") == 0)
+        {
+            printf("feature done=0\n");
+            printf("feature analyze=0 colors=0 myname=\"Zoe 0.2 by James Stanley\" reuse=0 sigint=0 sigterm=0 time=1\n");
+            printf("feature done=1\n");
+        }
+        else if (strcmp(line, "new") == 0)
         {
             /* start a new game */
             reset_game(&game);
