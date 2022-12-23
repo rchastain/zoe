@@ -37,14 +37,16 @@
 
 #define HT_SIZE (1 << 22)
 
-typedef struct Board {
+typedef struct Board
+{
     uint8_t mailbox[64];
     uint64_t b[2][7];
     uint64_t occupied;
     uint64_t zobrist;
 } Board;
 
-typedef struct Game {
+typedef struct Game
+{
     Board board;
     uint8_t can_castle[2][2];
     uint8_t quiet_moves;
@@ -54,19 +56,22 @@ typedef struct Game {
     int eval;
 } Game;
 
-typedef struct Move {
+typedef struct Move
+{
     uint8_t begin;
     uint8_t end;
     uint8_t promote;
 } Move;
 
-typedef struct MoveScore {
+typedef struct MoveScore
+{
     Move move;
     int score;
     Move pv[16];
 } MoveScore;
 
-typedef struct HashEntry {
+typedef struct HashEntry
+{
     uint64_t key;
     uint8_t depth;
     uint8_t type;
@@ -103,9 +108,9 @@ extern uint64_t zobrist[8][64];
 
 void init_zobrist(void);
 void hash_store(uint64_t key, uint8_t depth, uint8_t type, MoveScore move,
-        int colour);
+                int colour);
 MoveScore hash_retrieve(uint64_t key, uint8_t depth, int alpha, int beta,
-        int colour);
+                        int colour);
 
 /* move.c */
 char *xboard_move(Move m);
