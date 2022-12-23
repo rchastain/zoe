@@ -10,7 +10,8 @@ In [this repository](https://github.com/rchastain/zoe) you can find a version re
 
 ## Logos
 
-![Image](logo/logo1.gif)
+![Image](logo/logo1.gif)  
+
 ![Image](logo/logo2.gif)
 
 (Made with ImageMagick and [Ausweis](https://www.dafont.com/ausweis.font) font.)
