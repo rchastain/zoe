@@ -143,7 +143,11 @@ int main(int argc, char **argv)
     Game game;
     char *line = NULL;
     size_t len = 0;
-
+    
+    int timeLeft;
+    int mps, timectrl, inc, movetime;
+    char keyword[80];
+    
     /* don't quit when xboard sends SIGINT */
     if (!isatty(STDIN_FILENO))
         signal(SIGINT, SIG_IGN);
@@ -167,10 +171,13 @@ int main(int argc, char **argv)
         if (line[strlen(line) - 1] == '\n')
             line[strlen(line) - 1] = '\0';
 
+        /* extract the first word */
+        sscanf(line, "%s", keyword);
+        
         if (strcmp(line, "protover 2") == 0 || strcmp(line, "protover") == 0)
         {
             printf("feature done=0\n");
-            printf("feature analyze=0 colors=0 myname=\"Zoe 0.2 by James Stanley\" reuse=0 sigint=0 sigterm=0 time=1\n");
+            printf("feature analyze=0 colors=0 myname=\"Zoe 0.3 by James Stanley\" reuse=0 sigint=0 sigterm=0 time=1\n");
             printf("feature done=1\n");
         }
         else if (strcmp(line, "new") == 0)
@@ -215,6 +222,33 @@ int main(int argc, char **argv)
             exit(0);
         }
 
+        else if(strcmp(keyword, "time") == 0) {
+            sscanf(line, "time %d", &timeLeft);
+            printf("# time %d\n", timeLeft);
+        }
+        
+        else if(strcmp(keyword, "level") == 0) {
+            int min, sec = 0;
+            sscanf(line, "level %d %d %d", &mps, &min, &inc) == 3 ||
+            sscanf(line, "level %d %d:%d %d", &mps, &min, &sec, &inc);
+            printf("# level %d %d:%d %d\n", mps, min, sec, inc);
+            if (mps == 0) /* incremental and sudden-death TC */
+            {
+              timectrl = 1;
+              movetime = 1000 * inc + 500;
+            }
+            else if (inc == 0) /* classical TC */
+            {
+              timectrl = 2;
+              movetime = (60 * 1000 * min + 1000 * sec) / mps;
+            }
+            else
+            {
+              timectrl = 0;
+              movetime = 500;
+            }
+        }
+
         else if (is_xboard_move(line))
         {
             Move m = get_xboard_move(line);
@@ -233,7 +267,7 @@ int main(int argc, char **argv)
         if (game.turn == game.engine)
         {
             /* find the best move */
-            Move m = best_move(game);
+            Move m = best_move(game, movetime);
 
             /* only do anything if we have a legal move */
             if (m.begin != 64)

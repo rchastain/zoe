@@ -11,6 +11,7 @@
 #endif
 
 static int nodes;
+clock_t limit = 0;
 
 /* sort the list of moves to put the ones most likely to be good first */
 static void sort_moves(Move *moves, int nmoves, Game *game)
@@ -229,7 +230,8 @@ MoveScore iterative_deepening(Game game)
 {
     int d;
     MoveScore best;
-
+    clock_t clock1;
+    
     /* iteratively deepen until the maximum depth is reached */
     for (d = 1; d <= SEARCHDEPTH; d++)
     {
@@ -247,21 +249,33 @@ MoveScore iterative_deepening(Game game)
         }
 
         /* TODO: stop searching if the entire tree is searched */
+        
         /* TODO: stop searching if time limit reached */
+        clock1 = clock();
+        if (clock1 > limit)
+        {
+          printf("# clock1 > limit [d = %d, clock1 - limit = %ld]\n", d, clock1 - limit);
+          break;
+        }
     }
 
     return best;
 }
 
 /* return the best move for the current player */
-Move best_move(Game game)
+Move best_move(Game game, int movetime)
 {
     clock_t start = clock();
     nodes = 0;
+    clock_t movetime2 = CLOCKS_PER_SEC * ((double)movetime / 1000);
+    movetime2 /= 20;
+    limit = start + movetime2;
     
     printf("# SEARCHDEPTH = %d\n", SEARCHDEPTH);
+    printf("# best_move(,%d) [start=%ld, limit=%ld]\n", movetime, start, limit);
     
     MoveScore best = iterative_deepening(game);
+    
     printf("# %.2f n/s\n", (float)(nodes * CLOCKS_PER_SEC) / (clock() - start));
 
     if (best.move.begin == 64)  /* we had no legal moves */

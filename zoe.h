@@ -124,7 +124,7 @@ int piece_square_score(int piece, int square, int colour);
 
 /* search.c */
 MoveScore alphabeta(Game game, int alpha, int beta, int depth);
-Move best_move(Game game);
+Move best_move(Game game, int movetime);
 
 /* zoe.c */
 extern int post;
