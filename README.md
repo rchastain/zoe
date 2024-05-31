@@ -19,6 +19,11 @@ In [this repository](https://github.com/rchastain/zoe) you can find a version re
 
 - [TalkChess](https://talkchess.com/forum3/viewtopic.php?t=81185)
 
+## Binaries
+
+- [Releases](https://github.com/rchastain/zoe/releases)
+- [Alternative](https://msegui.net/downloads/chess/)
+
 ## Interesting links
 
 - [ZOE 0.1](http://kirr.homeunix.org/chess/engines/Jim%20Ablett/ZOE/) by Jim Ablett
