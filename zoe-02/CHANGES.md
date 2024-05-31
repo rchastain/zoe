@@ -2,7 +2,12 @@
 
 ## Version 0.2
 
-Version retouched by Roland Chastain, starting from the original program and borrowing ideas to [version 0.1](http://kirr.homeunix.org/chess/engines/Jim%20Ablett/ZOE/) by Jim Ablett.
+Version retouched by Roland Chastain, starting from [the original program][1] and borrowing ideas to [version 0.1][2] by Jim Ablett.
 
-* [Define SEARCHDEPTH at compile time](https://github.com/jes/zoe/commit/ae5f22f350a21bbb2c84721d159000bd397a5e23)
-* Support `protover 2` command
+(The version 0.1 is older than the code currently available on James Stanley's repository. That's why I didn't use it as a starting point.)
+
+* Define SEARCHDEPTH at compile time
+* Support `protover 2` CECP command
+
+[1]: https://github.com/jes/zoe
+[2]: http://kirr.homeunix.org/chess/engines/Jim%20Ablett/ZOE/
