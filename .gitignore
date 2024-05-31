@@ -2,5 +2,6 @@
 *.debug
 *.o
 *.sh
+!play.sh
 zoe
 zoe.out
