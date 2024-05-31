@@ -1,0 +1,34 @@
+# Makefile for zoe
+# James Stanley 2011
+#
+# Run with "make cflags=foo" to add to CFLAGS (same for LDFLAGS)
+
+LDFLAGS = $(ldflags)
+
+ifeq ($(OS),Windows_NT)
+CFLAGS  = -Wall $(cflags)
+else
+CFLAGS  = -Wall -DASM_BITSCAN $(cflags)
+endif
+
+OBJS    = bitscan.o board.o game.o hash.o move.o search.o zoe.o
+
+ifdef SEARCHDEPTH
+CFLAGS += -DSEARCHDEPTH=$(SEARCHDEPTH)
+endif
+
+.PHONY: all
+all: zoe
+
+.PHONY: clean
+clean:
+	rm -f $(OBJS)
+
+tags: *.[ch]
+	ctags *.[ch]
+
+zoe: $(OBJS)
+	$(CC) -o zoe $(LDFLAGS) $(OBJS)
+
+%.o: %.c
+	$(CC) -o $@ -c $(CFLAGS) $<

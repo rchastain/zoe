@@ -1,0 +1,7 @@
+*.debug
+*.cmd
+!play.cmd
+*.o
+
+zoe
+zoe.exe
